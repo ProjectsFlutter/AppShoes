@@ -8,7 +8,7 @@ class ShoePreview extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
       child: Container(
-        height: 430.0,
+        height: 400.0,
         width: double.infinity,
         decoration: BoxDecoration(
           color: const Color(0xffFFCF53),
@@ -16,8 +16,8 @@ class ShoePreview extends StatelessWidget {
         ),
         child: Column(
           children: const [
-            Expanded(flex: 4, child: _ShowShadow()),
-            Expanded(flex: 1, child: _ShoeSize())
+            Expanded(flex: 5, child: _ShowShadow()),
+            Expanded(flex: 2, child: _ShoeSize())
           ],
         ),
       ),
@@ -70,8 +70,8 @@ class _Size extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      height: 50.0,
-      width: 50.0,
+      height: 40.0,
+      width: 40.0,
       decoration: BoxDecoration(
         color:  (number == 9.0) ?  const Color(0xffF1A23A) : Colors.white,
         borderRadius: BorderRadius.circular(10.0),
@@ -84,8 +84,8 @@ class _Size extends StatelessWidget {
       style: TextStyle(
         color: (number == 9.0) ? Colors.white : const Color(0xffF1A23A), 
         fontWeight: FontWeight.bold, 
-        fontSize: 16.0)
-      ),
+        fontSize: 16.0
+      )),
     );
   }
 }
