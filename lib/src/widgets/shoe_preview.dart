@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
 
 class ShoePreview extends StatelessWidget {
-  const ShoePreview({Key? key}) : super(key: key);
+  final bool? fullScreen;
+  const ShoePreview({Key? key, this.fullScreen = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: fullScreen! ? 5.0 : 30.0, 
+        vertical: fullScreen! ? 5.0: 10.0
+      ),
       child: Container(
-        height: 400.0,
+        height: fullScreen! ? 350.0 : 400.0,
         width: double.infinity,
         decoration: BoxDecoration(
           color: const Color(0xffFFCF53),
-          borderRadius: BorderRadius.circular(50.0)
+          borderRadius: !fullScreen! 
+                        ? BorderRadius.circular(50.0)
+                        : const BorderRadius.only(
+                          bottomLeft: Radius.circular(50.0),
+                          bottomRight: Radius.circular(50.0),
+                          topLeft: Radius.circular(40.0),
+                          topRight: Radius.circular(40.0),
+                        )
         ),
         child: Column(
-          children: const [
-            Expanded(flex: 5, child: _ShowShadow()),
-            Expanded(flex: 2, child: _ShoeSize())
+          children: [
+            const Expanded(flex: 5, child: _ShowShadow()),
+            if(!fullScreen!)
+              const Expanded(flex: 2, child: _ShoeSize())
           ],
         ),
       ),
@@ -98,7 +110,7 @@ class _Shadow extends StatelessWidget {
     return Transform.rotate(
       angle: -0.5,
       child: Container(
-        width: 230.0,
+        width: 220.0,
         height: 120.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100.0),
