@@ -13,11 +13,13 @@ class ShoeDescPage extends StatelessWidget {
         children: [
           Stack(
             children: [
-              const ShoePreview(fullScreen: true),
+              const Hero(tag: 'shoe-1', child: ShoePreview(fullScreen: true)),
               Positioned(
                 top: 50.0,
                 child: FloatingActionButton(
-                  onPressed:()=>{} , 
+                  onPressed:(){
+                    Navigator.pop(context);
+                  } , 
                   child: const Icon(Icons.chevron_left, color: Colors.white, size: 60.0),
                   backgroundColor: Colors.transparent,
                   elevation: 0,

@@ -1,3 +1,4 @@
+import 'package:app_shoes/src/pages/shoe_desc_page.dart';
 import 'package:flutter/material.dart';
 
 class ShoePreview extends StatelessWidget {
@@ -6,31 +7,38 @@ class ShoePreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: fullScreen! ? 5.0 : 30.0, 
-        vertical: fullScreen! ? 5.0: 10.0
-      ),
-      child: Container(
-        height: fullScreen! ? 350.0 : 400.0,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: const Color(0xffFFCF53),
-          borderRadius: !fullScreen! 
-                        ? BorderRadius.circular(50.0)
-                        : const BorderRadius.only(
-                          bottomLeft: Radius.circular(50.0),
-                          bottomRight: Radius.circular(50.0),
-                          topLeft: Radius.circular(40.0),
-                          topRight: Radius.circular(40.0),
-                        )
+    return GestureDetector(
+      onTap: (){
+        if(!fullScreen!){
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const ShoeDescPage()));
+        }
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: fullScreen! ? 5.0 : 30.0, 
+          vertical: fullScreen! ? 5.0: 10.0
         ),
-        child: Column(
-          children: [
-            const Expanded(flex: 5, child: _ShowShadow()),
-            if(!fullScreen!)
-              const Expanded(flex: 2, child: _ShoeSize())
-          ],
+        child: Container(
+          height: fullScreen! ? 350.0 : 400.0,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: const Color(0xffFFCF53),
+            borderRadius: !fullScreen! 
+                          ? BorderRadius.circular(50.0)
+                          : const BorderRadius.only(
+                            bottomLeft: Radius.circular(50.0),
+                            bottomRight: Radius.circular(50.0),
+                            topLeft: Radius.circular(40.0),
+                            topRight: Radius.circular(40.0),
+                          )
+          ),
+          child: Column(
+            children: [
+              const Expanded(flex: 5, child: _ShowShadow()),
+              if(!fullScreen!)
+                const Expanded(flex: 2, child: _ShoeSize())
+            ],
+          ),
         ),
       ),
     );
