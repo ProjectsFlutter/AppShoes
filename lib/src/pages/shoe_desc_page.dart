@@ -99,16 +99,16 @@ class _ColorsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 10.0),
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0),
       child: Row(
         children: [
           Expanded(
             child: Stack(
               children: const [
-              Positioned(left: 90.0, child: _ButtonColor(color: Color(0xffC6D642), dirImage: 'assets/imgs/verde.png')),
-              Positioned(left: 60.0, child: _ButtonColor(color: Color(0xffFFAD29), dirImage: 'assets/imgs/amarillo.png')),
-              Positioned(left: 30.0, child: _ButtonColor(color: Color(0xff2099F1), dirImage: 'assets/imgs/azul.png')),
-              _ButtonColor(color: Color(0xff364D56), dirImage: 'assets/imgs/negro.png'), 
+              Positioned(left: 90.0, child: _ButtonColor(color: Color(0xffC6D642), dirImage: 'assets/imgs/verde.png', index: 4)),
+              Positioned(left: 60.0, child: _ButtonColor(color: Color(0xffFFAD29), dirImage: 'assets/imgs/amarillo.png', index: 3)),
+              Positioned(left: 30.0, child: _ButtonColor(color: Color(0xff2099F1), dirImage: 'assets/imgs/azul.png', index: 2)),
+              _ButtonColor(color: Color(0xff364D56), dirImage: 'assets/imgs/negro.png', index: 1,), 
               ],
             ),
           ),
@@ -122,7 +122,8 @@ class _ColorsSection extends StatelessWidget {
 class _ButtonColor extends StatelessWidget {
   final Color color;
   final String dirImage;
-  const _ButtonColor({Key? key, required this.color, required this.dirImage }) : super(key: key);
+  final int index;
+  const _ButtonColor({Key? key, required this.color, required this.dirImage, required this.index }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -131,13 +132,23 @@ class _ButtonColor extends StatelessWidget {
       onTap: (){
         shoeModel.assetImage = dirImage;
       },
-      child: Container(
-        height: 45.0,
-        width: 45.0,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle
+      child: TweenAnimationBuilder<double>(
+        child: Container(
+            height: 45.0,
+            width: 45.0,
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle
+            ),
         ),
+        tween: Tween(begin: 100.0, end: 0.0),
+        duration: const Duration(seconds: 1),
+        builder: (context, value, _child) {
+          return Transform.translate(
+            offset: Offset(-index * value, 0.0),
+            child: _child,
+          );
+        }
       ),
     );
   }
