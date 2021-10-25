@@ -52,14 +52,16 @@ class _ShowShadow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final shoeModel = Provider.of<ShoeModel>(context);
+
     return Stack(
-      children: const [
-        Positioned(
+      children: [
+        const Positioned(
           bottom: 20.0,
           right: 0.0,
           child: _Shadow()
         ),
-        Image(image: AssetImage('assets/imgs/azul.png')),
+        Image(image: AssetImage(shoeModel.assetImage)),
       ],
     );
   }

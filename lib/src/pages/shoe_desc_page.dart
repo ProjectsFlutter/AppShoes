@@ -1,7 +1,9 @@
+import 'package:app_shoes/src/models/shoe_model.dart';
 import 'package:app_shoes/src/widgets/shoe_description.dart';
 import 'package:app_shoes/src/widgets/shoe_preview.dart';
 import 'package:app_shoes/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ShoeDescPage extends StatelessWidget {
   const ShoeDescPage({ Key? key }) : super(key: key);
@@ -100,10 +102,10 @@ class _ColorsSection extends StatelessWidget {
           Expanded(
             child: Stack(
               children: const [
-              Positioned(left: 90.0, child: _ButtonColor(color: Color(0xffC6D642))),
-              Positioned(left: 60.0, child: _ButtonColor(color: Color(0xffFFAD29))),
-              Positioned(left: 30.0, child: _ButtonColor(color: Color(0xff2099F1))),
-              _ButtonColor(color: Color(0xff364D56)), 
+              Positioned(left: 90.0, child: _ButtonColor(color: Color(0xffC6D642), dirImage: 'assets/imgs/verde.png')),
+              Positioned(left: 60.0, child: _ButtonColor(color: Color(0xffFFAD29), dirImage: 'assets/imgs/amarillo.png')),
+              Positioned(left: 30.0, child: _ButtonColor(color: Color(0xff2099F1), dirImage: 'assets/imgs/azul.png')),
+              _ButtonColor(color: Color(0xff364D56), dirImage: 'assets/imgs/negro.png'), 
               ],
             ),
           ),
@@ -116,16 +118,23 @@ class _ColorsSection extends StatelessWidget {
 
 class _ButtonColor extends StatelessWidget {
   final Color color;
-  const _ButtonColor({Key? key, required this.color }) : super(key: key);
+  final String dirImage;
+  const _ButtonColor({Key? key, required this.color, required this.dirImage }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 45.0,
-      width: 45.0,
-      decoration: BoxDecoration(
-        color: color,
-        shape: BoxShape.circle
+    final shoeModel = Provider.of<ShoeModel>(context, listen: false);
+    return GestureDetector(
+      onTap: (){
+        shoeModel.assetImage = dirImage;
+      },
+      child: Container(
+        height: 45.0,
+        width: 45.0,
+        decoration: BoxDecoration(
+          color: color,
+          shape: BoxShape.circle
+        ),
       ),
     );
   }
