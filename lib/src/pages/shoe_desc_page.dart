@@ -1,3 +1,4 @@
+import 'package:app_shoes/src/helpers/helpers.dart';
 import 'package:app_shoes/src/models/shoe_model.dart';
 import 'package:app_shoes/src/widgets/shoe_description.dart';
 import 'package:app_shoes/src/widgets/shoe_preview.dart';
@@ -10,6 +11,7 @@ class ShoeDescPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    changeStatusLight();
     return Scaffold(
       body: Column(
         children: [
@@ -20,6 +22,7 @@ class ShoeDescPage extends StatelessWidget {
                 top: 50.0,
                 child: FloatingActionButton(
                   onPressed:(){
+                     changeStatusDark();
                     Navigator.pop(context);
                   } , 
                   child: const Icon(Icons.chevron_left, color: Colors.white, size: 60.0),
