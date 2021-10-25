@@ -107,7 +107,6 @@ class _ColorsSection extends StatelessWidget {
               ],
             ),
           ),
-          const Spacer(),
           const OrangeButton(texto: "More related items", alto: 30.0, ancho: 170.0, color: Color(0xffFFC675),)
         ],
       ),

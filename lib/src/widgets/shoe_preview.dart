@@ -1,5 +1,7 @@
+import 'package:app_shoes/src/models/shoe_model.dart';
 import 'package:app_shoes/src/pages/shoe_desc_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ShoePreview extends StatelessWidget {
   final bool? fullScreen;
@@ -88,24 +90,31 @@ class _Size extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      height: 40.0,
-      width: 40.0,
-      decoration: BoxDecoration(
-        color:  (number == 9.0) ?  const Color(0xffF1A23A) : Colors.white,
-        borderRadius: BorderRadius.circular(10.0),
-        boxShadow: [
-          if (number == 9.0)
-            const BoxShadow(color: Color(0xffF1A23A), blurRadius: 10.0, offset: Offset(0, 5))
-        ]
+    final shoeModel = Provider.of<ShoeModel>(context);
+
+    return GestureDetector(
+      onTap: (){
+        shoeModel.size = number;
+      },
+      child: Container(
+        alignment: Alignment.center,
+        height: 40.0,
+        width: 40.0,
+        decoration: BoxDecoration(
+          color:  (number == shoeModel.size) ?  const Color(0xffF1A23A) : Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: [
+            if (number == shoeModel.size)
+              const BoxShadow(color: Color(0xffF1A23A), blurRadius: 10.0, offset: Offset(0, 5))
+          ]
+        ),
+        child: Text("$number", 
+        style: TextStyle(
+          color: (number == shoeModel.size) ? Colors.white : const Color(0xffF1A23A), 
+          fontWeight: FontWeight.bold, 
+          fontSize: 16.0
+        )),
       ),
-      child: Text("$number", 
-      style: TextStyle(
-        color: (number == 9.0) ? Colors.white : const Color(0xffF1A23A), 
-        fontWeight: FontWeight.bold, 
-        fontSize: 16.0
-      )),
     );
   }
 }
