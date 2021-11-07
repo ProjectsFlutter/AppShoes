@@ -112,7 +112,10 @@ class _ColorsSection extends StatelessWidget {
               ],
             ),
           ),
-          const OrangeButton(texto: "More related items", alto: 30.0, ancho: 170.0, color: Color(0xffFFC675),)
+           const Expanded(
+             child: OrangeButton(texto: "More related items", alto: 30.0, ancho: 170.0, color: Color(0xffFFC675)
+             )
+          )
         ],
       ),
     );
@@ -154,19 +157,56 @@ class _ButtonColor extends StatelessWidget {
   }
 }
 
-class _BuyNow extends StatelessWidget {
+class _BuyNow extends StatefulWidget {
   const _BuyNow({Key? key}) : super(key: key);
 
+  @override
+  State<_BuyNow> createState() => _BuyNowState();
+}
+
+class _BuyNowState extends State<_BuyNow> with SingleTickerProviderStateMixin{
+  late AnimationController controlador;
+  late Animation<double> moveUp;
+  late Animation<double> moveDown;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controlador = AnimationController(vsync: this, duration: const Duration(seconds: 1));
+    moveUp = Tween(begin: 0.0, end: -100.0).animate(
+      CurvedAnimation(parent: controlador, curve: const Interval(0, 0.5, curve: Curves.bounceOut))
+    );
+    moveDown = Tween(begin: 0.0, end: 100.0).animate(
+      CurvedAnimation(parent: controlador, curve: const Interval(0.5, 1.0, curve: Curves.bounceOut))
+    );
+    controlador.forward();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controlador.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
         padding: const EdgeInsets.symmetric(horizontal: 30.0),
         margin: const EdgeInsets.only(top: 20.0),
         child: Row( 
-          children:const [
-              Text("\$180.0", style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold)),
-              Spacer(),
-              OrangeButton(texto: 'Buy now', alto: 40.0, ancho: 100.0,)
+          children:[
+              const Text("\$180.0", style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold)),
+              const Spacer(),
+              AnimatedBuilder(
+                animation: controlador,
+                child: const OrangeButton(texto: 'Buy now', alto: 40.0, ancho: 100.0),
+                builder: (context,  _child) {
+                  return Transform.translate(
+                    offset: Offset(0.0, moveUp.value + moveDown.value),
+                    child: _child,
+                  );
+                }
+              )
           ],
         ),
     );
